@@ -8,7 +8,7 @@
         port: 5000
   rules:
     - name: EDA handling the triggers from the demo 1 | Monitoring tool [Only a file]
-      condition: event.payload.data is defined 
+      condition: event.payload is defined 
       actions:
         - debug:
             msg: "Received event: {{ event.payload.data }}"
