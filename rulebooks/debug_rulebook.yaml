@@ -1,12 +1,14 @@
 ---
-- name: Run a webhook listener service
-  hosts: all
+- name: Listen to Events
+  hosts: localhost
   sources:
-    - ansible.eda.webhook:
-        port: 5005
+    - name: Listen to the Host and Port
+      ansible.eda.webhook:
+        host: 0.0.0.0
+        port: 5000
   rules:
-    - name: Webhook event
-      condition: event.payload is defined
-      action:
-        debug:
-          msg: "{{ event.payload }}"
+    - name: EDA handling the triggers from the demo 1 | Monitoring tool [Only a file]
+      condition: event.payload.data is defined 
+      actions:
+        - debug:
+            msg: "Received event: {{ event.payload.data }}"
