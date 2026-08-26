@@ -71,16 +71,16 @@ spec:
               required:
                 - os_version
 
-    # ── Page 2: hidden auth page (required by the portal) ──────────
-    - title: Authentication
-      required:
-        - token
-      properties:
-        token:
-          title: Token
-          type: string
-          ui:field: AAPTokenField
-          ui:widget: hidden
+    # # ── Page 2: hidden auth page (required by the portal) ──────────
+    # - title: Authentication
+    #   required:
+    #     - token
+    #   properties:
+    #     token:
+    #       title: Token
+    #       type: string
+    #       ui:field: AAPTokenField
+    #       ui:widget: hidden
 
   # ── Launch the AAP job template with the chosen values ───────────
   steps:
