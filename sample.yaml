@@ -88,10 +88,9 @@ spec:
       name: Demo Job Template
       action: rhaap:launch-job-template
       input:
-        token: ${{ secrets.aapToken }}
+        token: ${{ secrets.aapToken or parameters.token }}
         values:
-          template: 'Demo Job Template'        # ← your job template name in AAP
-          organization: 'Default'            # uncomment/adjust if needed
+          template: 'Demo Job Template'
           extraVariables:
             os_family: ${{ parameters.os_family }}
             os_version: ${{ parameters.os_version }}
