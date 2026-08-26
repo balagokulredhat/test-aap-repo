@@ -1,0 +1,105 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  namespace: default
+  name: os-provision-request
+  title: OS Provisioning Request
+  description: >-
+    Request a new machine. Pick an OS family first — the version list
+    adapts to your choice (cascading dropdown).
+  tags:
+    - ansible
+    - self-service
+    - provisioning
+spec:
+  type: service
+
+  parameters:
+    # ── Page 1: the cascading form ──────────────────────────────────
+    - title: Operating System
+      required:
+        - os_family
+      properties:
+        os_family:
+          title: OS family            # ← FIELD 1
+          type: string
+          description: Choose the operating system family
+          enum:
+            - linux
+            - windows
+          enumNames:                  # nice labels shown to the SME
+            - Linux
+            - Windows
+
+      # ── The cascade: field 2 changes based on field 1 ─────────────
+      dependencies:
+        os_family:
+          oneOf:
+            # ---- Branch A: user picked "linux" ----
+            - properties:
+                os_family:
+                  enum: [linux]
+                os_version:
+                  title: Distribution   # ← FIELD 2 (linux flavor)
+                  type: string
+                  enum:
+                    - rhel9
+                    - ubuntu2404
+                    - rocky9
+                  enumNames:
+                    - RHEL 9
+                    - Ubuntu 24.04
+                    - Rocky Linux 9
+              required:
+                - os_version
+
+            # ---- Branch B: user picked "windows" ----
+            - properties:
+                os_family:
+                  enum: [windows]
+                os_version:
+                  title: Windows version  # ← FIELD 2 (windows flavor)
+                  type: string
+                  enum:
+                    - win11
+                    - win10
+                    - winsrv_sql
+                  enumNames:
+                    - Windows 11
+                    - Windows 10
+                    - Windows Server with SQL
+              required:
+                - os_version
+
+    # ── Page 2: hidden auth page (required by the portal) ──────────
+    - title: Authentication
+      required:
+        - token
+      properties:
+        token:
+          title: Token
+          type: string
+          ui:field: AAPTokenField
+          ui:widget: hidden
+
+  # ── Launch the AAP job template with the chosen values ───────────
+  steps:
+    - id: launch-job
+      name: Provision machine
+      action: rhaap:launch-job-template
+      input:
+        token: ${{ secrets.aapToken }}
+        values:
+          template: 'Provision Machine'        # ← your job template name in AAP
+          # organization: 'Default'            # uncomment/adjust if needed
+          extraVariables:
+            os_family: ${{ parameters.os_family }}
+            os_version: ${{ parameters.os_version }}
+
+  output:
+    text:
+      - title: Request submitted
+        content: |
+          **Job ID:** ${{ steps['launch-job'].output.data.id }}
+          **Status:** ${{ steps['launch-job'].output.data.status }}
+          **OS:** ${{ parameters.os_family }} / ${{ parameters.os_version }}
