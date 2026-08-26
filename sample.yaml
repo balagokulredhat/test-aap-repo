@@ -3,7 +3,7 @@ kind: Template
 metadata:
   namespace: default
   name: os-provision-request
-  title: OS Provisioning Request
+  title: OS Provisioning Request v2
   description: >-
     Request a new machine. Pick an OS family first — the version list
     adapts to your choice (cascading dropdown).
