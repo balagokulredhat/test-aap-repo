@@ -85,16 +85,17 @@ spec:
   # ── Launch the AAP job template with the chosen values ───────────
   steps:
     - id: launch-job
-      name: Provision machine
+      name: Demo Job Template
       action: rhaap:launch-job-template
       input:
         token: ${{ secrets.aapToken }}
         values:
-          template: 'Provision Machine'        # ← your job template name in AAP
-          # organization: 'Default'            # uncomment/adjust if needed
+          template: 'Demo Job Template'        # ← your job template name in AAP
+          organization: 'Default'            # uncomment/adjust if needed
           extraVariables:
             os_family: ${{ parameters.os_family }}
             os_version: ${{ parameters.os_version }}
+
 
   output:
     text:
