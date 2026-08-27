@@ -13,13 +13,16 @@ metadata:
     - provisioning
 spec:
   type: service
-
   parameters:
     # ── Page 1: the cascading form ──────────────────────────────────
     - title: Operating System
       required:
         - os_family
       properties:
+        field_1:
+          title: Field 1
+          type: password
+          description: Enter the password
         os_family:
           title: OS family            # ← FIELD 1
           type: string
