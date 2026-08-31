@@ -330,9 +330,9 @@ spec:
       values:
         template: Demo Job Template
         extraVariables:
-          host: ${{ parameters.host }}
-          server_config: ${{ parameters.server_config }}
-          change_ticket: ${{ parameters.change_ticket }}
+          target_host: ${{ parameters.host }}
+          target_server_cfg: ${{ parameters.server_config }}
+          chg_number: ${{ parameters.change_ticket }}
           restart_delay: ${{ parameters.restart_delay }}
           environment: ${{ parameters.environment }}
           notify_team: ${{ parameters.notify_team }}
