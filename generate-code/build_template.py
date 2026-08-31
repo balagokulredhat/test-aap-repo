@@ -45,7 +45,7 @@ def load_yaml(path: str):
 
 # ── field builders ───────────────────────────────────────────────────────────
 def build_cascade(field: dict, data_override: Optional[str] = None):
-    """Returns (properties, dependencies, required, var_names)."""
+    """Returns (properties, dependencies, required, [(param, extra_var)], stats)."""
     data_file = data_override or field["data"]
     records = load_yaml(data_file)
     if not isinstance(records, list) or not records:
@@ -78,8 +78,13 @@ def build_cascade(field: dict, data_override: Optional[str] = None):
         for parent, children in grouped.items()
     ]
     dependencies = {p_var: {"oneOf": branches}}
+    # optional overrides: parent_var / child_var rename the extra vars only
+    mapping = [
+        (p_var, field.get("parent_var", p_var)),
+        (c_var, field.get("child_var", c_var)),
+    ]
     stats = f"{len(grouped)} {p_var} -> {sum(len(v) for v in grouped.values())} {c_var}"
-    return properties, dependencies, [p_var], [p_var, c_var], stats
+    return properties, dependencies, [p_var], mapping, stats
 
 
 def build_simple(field: dict):
@@ -116,7 +121,9 @@ def build_simple(field: dict):
 
     if field.get("default") is not None:
         schema["default"] = field["default"]
-    return name, schema, bool(field.get("required", False))
+    # optional `var:` renames the extra var without touching the form field name
+    extra_var = field.get("var", name)
+    return name, schema, bool(field.get("required", False)), extra_var
 
 
 # ── main assembly ────────────────────────────────────────────────────────────
@@ -125,6 +132,8 @@ def main() -> None:
     ap.add_argument("--config", default="template_config.yaml")
     ap.add_argument("--data", default=None,
                     help="override the cascade field's data file (e.g. a new list)")
+    ap.add_argument("--out", default=None,
+                    help="override the config's output_file for this run")
     args = ap.parse_args()
 
     cfg = load_yaml(args.config)
@@ -133,21 +142,21 @@ def main() -> None:
     properties: dict = {}
     dependencies: dict = {}
     required: list = []
-    all_vars: list = []
+    var_map: list = []          # [(form parameter name, extra var name)]
     cascade_stats = []
 
     for field in form["fields"]:
         if field["type"] == "cascade":
-            props, deps, req, vars_, stats = build_cascade(field, args.data)
+            props, deps, req, mapping, stats = build_cascade(field, args.data)
             properties.update(props)
             dependencies.update(deps)
             required += req
-            all_vars += vars_
+            var_map += mapping
             cascade_stats.append(stats)
         else:
-            name, schema, is_req = build_simple(field)
+            name, schema, is_req, extra_var = build_simple(field)
             properties[name] = schema
-            all_vars.append(name)
+            var_map.append((name, extra_var))
             if is_req:
                 required.append(name)
 
@@ -173,8 +182,11 @@ def main() -> None:
         },
     }
 
-    # every form field becomes an extra var; fixed extra_vars from config merge in
-    extra_variables = {v: "${{ parameters.%s }}" % v for v in all_vars}
+    # each form field becomes an extra var, named by its `var:` (default: field name);
+    # fixed extra_vars from the config merge in last
+    extra_variables = {
+        extra_var: "${{ parameters.%s }}" % param for param, extra_var in var_map
+    }
     extra_variables.update(job.get("extra_vars") or {})
 
     launch_values = {"template": job["template"], "extraVariables": extra_variables}
@@ -221,7 +233,7 @@ def main() -> None:
         },
     }
 
-    out_file = cfg.get("output_file", "sample.yaml")
+    out_file = args.out or cfg.get("output_file", "sample.yaml")
     header = (
         "# ── GENERATED FILE — DO NOT EDIT ─────────────────────────────\n"
         f"# Built by build_template.py from {args.config}"
@@ -235,8 +247,11 @@ def main() -> None:
     with open(out_file, "w", encoding="utf-8") as fh:
         fh.write(header + body)
 
-    print(f"wrote {out_file}: {len(all_vars)} form fields "
+    renamed = [f"{p} -> {v}" for p, v in var_map if p != v]
+    print(f"wrote {out_file}: {len(var_map)} form fields "
           f"({'; '.join(cascade_stats) if cascade_stats else 'no cascade'})")
+    if renamed:
+        print("  renamed extra vars: " + ", ".join(renamed))
 
 
 if __name__ == "__main__":

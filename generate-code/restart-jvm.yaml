@@ -23,6 +23,11 @@ template:
 #   integer  – whole number     (supports min/max/default)
 #   boolean  – checkbox
 #   password – masked input (NOTE: still plain text in review/AAP job)
+#
+# EXTRA VAR NAMES: by default a field is sent to AAP under its own `name`.
+# Add `var:` to send it under a different name — useful when the playbook
+# expects a name you don't want in the form (e.g. legacy or namespaced vars).
+# Cascade fields use `parent_var:` / `child_var:` for the same purpose.
 form:
   page_title: Server Details
 
@@ -33,12 +38,15 @@ form:
       child_key: server-config       # key in the data file → dependent dropdown
       parent_title: Host
       child_title: Server Config
+      parent_var: target_host        # → extra var name (default: host)
+      child_var: target_server_cfg   # → extra var name (default: server_config)
 
     - type: text
       name: change_ticket
       title: Change Ticket
       description: e.g. CHG0012345
       required: true
+      var: chg_number                # playbook expects `chg_number`
 
     - type: integer
       name: restart_delay
@@ -46,6 +54,7 @@ form:
       default: 30
       minimum: 0
       maximum: 600
+      # no `var:` → sent as `restart_delay`
 
     - type: select
       name: environment
