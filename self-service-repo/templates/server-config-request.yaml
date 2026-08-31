@@ -1,0 +1,329 @@
+# ── GENERATED FILE — DO NOT EDIT ─────────────────────────────
+# Built by build_template.py from /home/claude/repo/configs/server-config-request.yaml
+# cascade: 19 host -> 50 server_config
+# ─────────────────────────────────────────────────────────────
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  namespace: default
+  name: server-config-request
+  title: Server Config Request
+  description: Pick a host, then one of its server configs.
+  tags:
+  - ansible
+  - self-service
+spec:
+  type: service
+  parameters:
+  - title: Server Details
+    properties:
+      host:
+        title: Host
+        type: string
+        enum:
+        - TanfeethNode02
+        - TanfeethNode01
+        - IPONode02
+        - IPONode01
+        - ChannelTranNode01
+        - ATMNode02
+        - ATMNode01
+        - SwiftNode02
+        - SwiftNode01
+        - SSOBrowserNode01
+        - SSOBrowserNode02
+        - ChannelEnqNode01
+        - ChannelEnqNode02
+        - BrowserNode01
+        - TSMNode01
+        - SuperAppNode02
+        - BrowserNode02
+        - TSMNode02
+        - SuperAppNode01
+      change_ticket:
+        title: Change Ticket
+        description: e.g. CHG0012345
+        type: string
+      restart_delay:
+        title: Restart delay (seconds)
+        type: integer
+        minimum: 0
+        maximum: 600
+        default: 30
+    required:
+    - host
+    - change_ticket
+    dependencies:
+      host:
+        oneOf:
+        - properties:
+            host:
+              enum:
+              - TanfeethNode02
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv02_Tanfeeth
+              - Srv04_Tanfeeth
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - TanfeethNode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_Tanfeeth
+              - Srv03_Tanfeeth
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - IPONode02
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv04_IPO
+              - Srv02_IPO
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - IPONode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_IPO
+              - Srv03_IPO
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - ChannelTranNode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_ChannelTran
+              - Srv02_ChannelTran
+              - Srv03_ChannelTran
+              - Srv04_ChannelTran
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - ATMNode02
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv03_ATM
+              - Srv04_ATM
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - ATMNode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_ATM
+              - Srv02_ATM
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - SwiftNode02
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv03_Swift
+              - Srv04_Swift
+              - Srv07_Swift
+              - Srv08_Swift
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - SwiftNode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_Swift
+              - Srv02_Swift
+              - Srv05_Swift
+              - Srv06_Swift
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - SSOBrowserNode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_SSO_Browser
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - SSOBrowserNode02
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv02_SSO_Browser
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - ChannelEnqNode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_ChannelEnq
+              - Srv02_ChannelEnq
+              - Srv05_ChannelEnq
+              - Srv06_ChannelEnq
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - ChannelEnqNode02
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv03_ChannelEnq
+              - Srv04_ChannelEnq
+              - Srv07_ChannelEnq
+              - Srv08_ChannelEnq
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - BrowserNode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_Browser
+              - Srv03_Browser
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - TSMNode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_TSM
+              - Srv02_TSM
+              - Srv05_TSM
+              - Srv06_TSM
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - SuperAppNode02
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv02_SuperApp
+              - Srv04_SuperApp
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - BrowserNode02
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv02_Browser
+              - Srv04_Browser
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - TSMNode02
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv03_TSM
+              - Srv04_TSM
+              - Srv07_TSM
+              - Srv08_TSM
+          required:
+          - server_config
+        - properties:
+            host:
+              enum:
+              - SuperAppNode01
+            server_config:
+              title: Server Config
+              type: string
+              enum:
+              - Srv01_SuperApp
+              - Srv03_SuperApp
+          required:
+          - server_config
+  - title: Authentication
+    required:
+    - token
+    properties:
+      token:
+        title: Token
+        type: string
+        ui:field: AAPTokenField
+        ui:widget: hidden
+  steps:
+  - id: launch-job
+    name: Demo Job Template
+    action: rhaap:launch-job-template
+    input:
+      token: ${{ secrets.aapToken or parameters.token }}
+      values:
+        template: Demo Job Template
+        extraVariables:
+          host: ${{ parameters.host }}
+          server_config: ${{ parameters.server_config }}
+          chg_number: ${{ parameters.change_ticket }}
+          restart_delay: ${{ parameters.restart_delay }}
+          requested_via: self-service-portal
+  output:
+    text:
+    - title: Request submitted
+      content: |
+        **Job ID:** ${{ steps['launch-job'].output.data.id }}
+        **Status:** ${{ steps['launch-job'].output.data.status }}
+        **Target:** ${{ parameters.host }} / ${{ parameters.server_config }}
+        **Ticket:** ${{ parameters.change_ticket }}

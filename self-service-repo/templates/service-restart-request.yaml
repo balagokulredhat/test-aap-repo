@@ -1,0 +1,315 @@
+# ── GENERATED FILE — DO NOT EDIT ─────────────────────────────
+# Built by build_template.py from /home/claude/repo/configs/service-restart-request.yaml
+# cascade: 3 env -> 6 host -> 8 service
+# ─────────────────────────────────────────────────────────────
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  namespace: default
+  name: service-restart-request
+  title: Service Restart Request
+  description: Pick an environment, then a host, then the service to restart.
+  tags:
+  - ansible
+  - self-service
+  - operations
+spec:
+  type: service
+  parameters:
+  - title: Target Selection
+    properties:
+      env:
+        title: Environment
+        type: string
+        enum:
+        - dev
+        - uat
+        - prod
+      change_ticket:
+        title: Change Ticket
+        type: string
+      force_restart:
+        title: Force restart if the service is unresponsive?
+        type: boolean
+        default: false
+    required:
+    - env
+    - change_ticket
+    dependencies:
+      env:
+        oneOf:
+        - properties:
+            env:
+              enum:
+              - dev
+            host:
+              title: Host
+              type: string
+              enum:
+              - SwiftNode01
+              - ATMNode01
+              - TSMNode01
+          required:
+          - host
+          dependencies:
+            host:
+              oneOf:
+              - properties:
+                  host:
+                    enum:
+                    - SwiftNode01
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - swift-gateway
+                    - swift-mq
+                    - swift-alliance
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - ATMNode01
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - atm-switch
+                    - atm-monitor
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - TSMNode01
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - tsm-core
+                    - tsm-agent
+                    - tsm-reporting
+                required:
+                - service
+        - properties:
+            env:
+              enum:
+              - uat
+            host:
+              title: Host
+              type: string
+              enum:
+              - SwiftNode01
+              - SwiftNode02
+              - ATMNode01
+              - ATMNode02
+              - TSMNode01
+              - TSMNode02
+          required:
+          - host
+          dependencies:
+            host:
+              oneOf:
+              - properties:
+                  host:
+                    enum:
+                    - SwiftNode01
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - swift-gateway
+                    - swift-mq
+                    - swift-alliance
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - SwiftNode02
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - swift-gateway
+                    - swift-mq
+                    - swift-alliance
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - ATMNode01
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - atm-switch
+                    - atm-monitor
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - ATMNode02
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - atm-switch
+                    - atm-monitor
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - TSMNode01
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - tsm-core
+                    - tsm-agent
+                    - tsm-reporting
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - TSMNode02
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - tsm-core
+                    - tsm-agent
+                    - tsm-reporting
+                required:
+                - service
+        - properties:
+            env:
+              enum:
+              - prod
+            host:
+              title: Host
+              type: string
+              enum:
+              - SwiftNode01
+              - SwiftNode02
+              - ATMNode01
+              - ATMNode02
+              - TSMNode01
+              - TSMNode02
+          required:
+          - host
+          dependencies:
+            host:
+              oneOf:
+              - properties:
+                  host:
+                    enum:
+                    - SwiftNode01
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - swift-gateway
+                    - swift-mq
+                    - swift-alliance
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - SwiftNode02
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - swift-gateway
+                    - swift-mq
+                    - swift-alliance
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - ATMNode01
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - atm-switch
+                    - atm-monitor
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - ATMNode02
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - atm-switch
+                    - atm-monitor
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - TSMNode01
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - tsm-core
+                    - tsm-agent
+                    - tsm-reporting
+                required:
+                - service
+              - properties:
+                  host:
+                    enum:
+                    - TSMNode02
+                  service:
+                    title: Service
+                    type: string
+                    enum:
+                    - tsm-core
+                    - tsm-agent
+                    - tsm-reporting
+                required:
+                - service
+  - title: Authentication
+    required:
+    - token
+    properties:
+      token:
+        title: Token
+        type: string
+        ui:field: AAPTokenField
+        ui:widget: hidden
+  steps:
+  - id: launch-job
+    name: Demo Job Template
+    action: rhaap:launch-job-template
+    input:
+      token: ${{ secrets.aapToken or parameters.token }}
+      values:
+        template: Demo Job Template
+        extraVariables:
+          target_env: ${{ parameters.env }}
+          host: ${{ parameters.host }}
+          service_name: ${{ parameters.service }}
+          chg_number: ${{ parameters.change_ticket }}
+          force_restart: ${{ parameters.force_restart }}
+          requested_via: self-service-portal
+  output:
+    text:
+    - title: Restart requested
+      content: |
+        **Job ID:** ${{ steps['launch-job'].output.data.id }}
+        **Status:** ${{ steps['launch-job'].output.data.status }}
+        **Target:** ${{ parameters.env }} / ${{ parameters.host }} / ${{ parameters.service }}

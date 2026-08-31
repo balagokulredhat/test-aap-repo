@@ -1,0 +1,202 @@
+[
+  {
+    "env": "dev",
+    "host": "SwiftNode01",
+    "service": "swift-gateway"
+  },
+  {
+    "env": "dev",
+    "host": "SwiftNode01",
+    "service": "swift-mq"
+  },
+  {
+    "env": "dev",
+    "host": "SwiftNode01",
+    "service": "swift-alliance"
+  },
+  {
+    "env": "dev",
+    "host": "ATMNode01",
+    "service": "atm-switch"
+  },
+  {
+    "env": "dev",
+    "host": "ATMNode01",
+    "service": "atm-monitor"
+  },
+  {
+    "env": "dev",
+    "host": "TSMNode01",
+    "service": "tsm-core"
+  },
+  {
+    "env": "dev",
+    "host": "TSMNode01",
+    "service": "tsm-agent"
+  },
+  {
+    "env": "dev",
+    "host": "TSMNode01",
+    "service": "tsm-reporting"
+  },
+  {
+    "env": "uat",
+    "host": "SwiftNode01",
+    "service": "swift-gateway"
+  },
+  {
+    "env": "uat",
+    "host": "SwiftNode01",
+    "service": "swift-mq"
+  },
+  {
+    "env": "uat",
+    "host": "SwiftNode01",
+    "service": "swift-alliance"
+  },
+  {
+    "env": "uat",
+    "host": "SwiftNode02",
+    "service": "swift-gateway"
+  },
+  {
+    "env": "uat",
+    "host": "SwiftNode02",
+    "service": "swift-mq"
+  },
+  {
+    "env": "uat",
+    "host": "SwiftNode02",
+    "service": "swift-alliance"
+  },
+  {
+    "env": "uat",
+    "host": "ATMNode01",
+    "service": "atm-switch"
+  },
+  {
+    "env": "uat",
+    "host": "ATMNode01",
+    "service": "atm-monitor"
+  },
+  {
+    "env": "uat",
+    "host": "ATMNode02",
+    "service": "atm-switch"
+  },
+  {
+    "env": "uat",
+    "host": "ATMNode02",
+    "service": "atm-monitor"
+  },
+  {
+    "env": "uat",
+    "host": "TSMNode01",
+    "service": "tsm-core"
+  },
+  {
+    "env": "uat",
+    "host": "TSMNode01",
+    "service": "tsm-agent"
+  },
+  {
+    "env": "uat",
+    "host": "TSMNode01",
+    "service": "tsm-reporting"
+  },
+  {
+    "env": "uat",
+    "host": "TSMNode02",
+    "service": "tsm-core"
+  },
+  {
+    "env": "uat",
+    "host": "TSMNode02",
+    "service": "tsm-agent"
+  },
+  {
+    "env": "uat",
+    "host": "TSMNode02",
+    "service": "tsm-reporting"
+  },
+  {
+    "env": "prod",
+    "host": "SwiftNode01",
+    "service": "swift-gateway"
+  },
+  {
+    "env": "prod",
+    "host": "SwiftNode01",
+    "service": "swift-mq"
+  },
+  {
+    "env": "prod",
+    "host": "SwiftNode01",
+    "service": "swift-alliance"
+  },
+  {
+    "env": "prod",
+    "host": "SwiftNode02",
+    "service": "swift-gateway"
+  },
+  {
+    "env": "prod",
+    "host": "SwiftNode02",
+    "service": "swift-mq"
+  },
+  {
+    "env": "prod",
+    "host": "SwiftNode02",
+    "service": "swift-alliance"
+  },
+  {
+    "env": "prod",
+    "host": "ATMNode01",
+    "service": "atm-switch"
+  },
+  {
+    "env": "prod",
+    "host": "ATMNode01",
+    "service": "atm-monitor"
+  },
+  {
+    "env": "prod",
+    "host": "ATMNode02",
+    "service": "atm-switch"
+  },
+  {
+    "env": "prod",
+    "host": "ATMNode02",
+    "service": "atm-monitor"
+  },
+  {
+    "env": "prod",
+    "host": "TSMNode01",
+    "service": "tsm-core"
+  },
+  {
+    "env": "prod",
+    "host": "TSMNode01",
+    "service": "tsm-agent"
+  },
+  {
+    "env": "prod",
+    "host": "TSMNode01",
+    "service": "tsm-reporting"
+  },
+  {
+    "env": "prod",
+    "host": "TSMNode02",
+    "service": "tsm-core"
+  },
+  {
+    "env": "prod",
+    "host": "TSMNode02",
+    "service": "tsm-agent"
+  },
+  {
+    "env": "prod",
+    "host": "TSMNode02",
+    "service": "tsm-reporting"
+  }
+]

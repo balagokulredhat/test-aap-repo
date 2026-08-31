@@ -1,0 +1,50 @@
+# Three-level cascade: environment → host → service
+
+template:
+  name: service-restart-request
+  title: Service Restart Request
+  description: Pick an environment, then a host, then the service to restart.
+  tags:
+    - ansible
+    - self-service
+    - operations
+
+form:
+  page_title: Target Selection
+  fields:
+    - type: cascade
+      data: data/env_host_service.json
+      levels:
+        - key: env
+          title: Environment
+          var: target_env
+        - key: host
+          title: Host
+        - key: service
+          title: Service
+          var: service_name
+
+    - type: text
+      name: change_ticket
+      title: Change Ticket
+      required: true
+      var: chg_number
+
+    - type: boolean
+      name: force_restart
+      title: Force restart if the service is unresponsive?
+      default: false
+
+job:
+  template: Demo Job Template
+  extra_vars:
+    requested_via: self-service-portal
+
+output:
+  title: Restart requested
+  content: |
+    **Job ID:** ${{ steps['launch-job'].output.data.id }}
+    **Status:** ${{ steps['launch-job'].output.data.status }}
+    **Target:** ${{ parameters.env }} / ${{ parameters.host }} / ${{ parameters.service }}
+
+output_file: templates/service-restart-request.yaml

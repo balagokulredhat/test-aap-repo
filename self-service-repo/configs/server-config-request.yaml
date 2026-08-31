@@ -1,0 +1,54 @@
+# ═════════════════════════════════════════════════════════════
+#  One config = one portal template.
+#  Paths are relative to the repo root.
+#  Build:  python3 generator/build_all.py
+# ═════════════════════════════════════════════════════════════
+
+template:
+  name: server-config-request        # keep stable — the portal tracks this
+  title: Server Config Request
+  description: Pick a host, then one of its server configs.
+  tags:
+    - ansible
+    - self-service
+
+form:
+  page_title: Server Details
+  fields:
+    - type: cascade
+      data: data/host_configs.json
+      levels:
+        - key: host
+          title: Host
+        - key: server-config
+          title: Server Config
+
+    - type: text
+      name: change_ticket
+      title: Change Ticket
+      description: e.g. CHG0012345
+      required: true
+      var: chg_number
+
+    - type: integer
+      name: restart_delay
+      title: Restart delay (seconds)
+      default: 30
+      minimum: 0
+      maximum: 600
+
+job:
+  template: Demo Job Template
+  # organization: Default
+  extra_vars:
+    requested_via: self-service-portal
+
+output:
+  title: Request submitted
+  content: |
+    **Job ID:** ${{ steps['launch-job'].output.data.id }}
+    **Status:** ${{ steps['launch-job'].output.data.status }}
+    **Target:** ${{ parameters.host }} / ${{ parameters.server_config }}
+    **Ticket:** ${{ parameters.change_ticket }}
+
+output_file: templates/server-config-request.yaml
