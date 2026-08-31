@@ -1,0 +1,85 @@
+# ═════════════════════════════════════════════════════════════
+#  template_config.yaml — describes the WHOLE portal template.
+#  Edit this file (and the data list) — never the generated YAML.
+#  Build with:   python3 build_template.py
+# ═════════════════════════════════════════════════════════════
+
+# ── template identity (shown in the portal catalog) ──────────
+template:
+  name: server-config-request        # keep stable so the portal keeps tracking it
+  title: Server Config Request
+  description: Pick a host, then one of its server configs.
+  tags:
+    - ansible
+    - self-service
+
+# ── the form ─────────────────────────────────────────────────
+# Fields appear in this order. Supported types:
+#   cascade  – two dependent dropdowns fed by a flat pair list (data file)
+#   select   – dropdown (options: plain values, or {value,label} pairs)
+#   text     – single-line string
+#   textarea – multi-line string
+#   number   – decimal number   (supports min/max/default)
+#   integer  – whole number     (supports min/max/default)
+#   boolean  – checkbox
+#   password – masked input (NOTE: still plain text in review/AAP job)
+form:
+  page_title: Server Details
+
+  fields:
+    - type: cascade
+      data: host_configs.json        # flat list of records (JSON or YAML)
+      parent_key: host               # key in the data file → first dropdown
+      child_key: server-config       # key in the data file → dependent dropdown
+      parent_title: Host
+      child_title: Server Config
+
+    - type: text
+      name: change_ticket
+      title: Change Ticket
+      description: e.g. CHG0012345
+      required: true
+
+    - type: integer
+      name: restart_delay
+      title: Restart delay (seconds)
+      default: 30
+      minimum: 0
+      maximum: 600
+
+    - type: select
+      name: environment
+      title: Environment
+      required: true
+      options:
+        - { value: dev,  label: Development }
+        - { value: uat,  label: UAT }
+        - { value: prod, label: Production }
+
+    - type: boolean
+      name: notify_team
+      title: Notify the team after completion?
+      default: true
+
+# ── the AAP launch ───────────────────────────────────────────
+job:
+  template: Demo Job Template        # exact job template name in AAP
+  # organization: Default            # uncomment if needed
+  # Every form field is passed as an extra var automatically
+  # (cascade fields arrive as parent/child var names, e.g. host, server_config).
+  # Add fixed values here if the playbook needs them:
+  extra_vars:
+    requested_via: self-service-portal
+
+# ── the run output (rendered with | block style, not quotes) ─
+output:
+  title: Request submitted
+  # ${{ ... }} expressions work here; steps['launch-job'] is the launch step
+  content: |
+    **Job ID:** ${{ steps['launch-job'].output.data.id }}
+    **Status:** ${{ steps['launch-job'].output.data.status }}
+    **Host:** ${{ parameters.host }} / ${{ parameters.server_config }}
+    **Ticket:** ${{ parameters.change_ticket }}
+
+# ── where to write the generated template ────────────────────
+output_file: restart-jvm-template.yaml

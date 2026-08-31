@@ -1,0 +1,202 @@
+[
+  {
+    "host": "TanfeethNode02",
+    "server-config": "Srv02_Tanfeeth"
+  },
+  {
+    "host": "TanfeethNode02",
+    "server-config": "Srv04_Tanfeeth"
+  },
+  {
+    "host": "TanfeethNode01",
+    "server-config": "Srv01_Tanfeeth"
+  },
+  {
+    "host": "TanfeethNode01",
+    "server-config": "Srv03_Tanfeeth"
+  },
+  {
+    "host": "IPONode02",
+    "server-config": "Srv04_IPO"
+  },
+  {
+    "host": "IPONode02",
+    "server-config": "Srv02_IPO"
+  },
+  {
+    "host": "IPONode01",
+    "server-config": "Srv01_IPO"
+  },
+  {
+    "host": "IPONode01",
+    "server-config": "Srv03_IPO"
+  },
+  {
+    "host": "ChannelTranNode01",
+    "server-config": "Srv01_ChannelTran"
+  },
+  {
+    "host": "ChannelTranNode01",
+    "server-config": "Srv02_ChannelTran"
+  },
+  {
+    "host": "ChannelTranNode01",
+    "server-config": "Srv03_ChannelTran"
+  },
+  {
+    "host": "ChannelTranNode01",
+    "server-config": "Srv04_ChannelTran"
+  },
+  {
+    "host": "ATMNode02",
+    "server-config": "Srv03_ATM"
+  },
+  {
+    "host": "ATMNode02",
+    "server-config": "Srv04_ATM"
+  },
+  {
+    "host": "ATMNode01",
+    "server-config": "Srv01_ATM"
+  },
+  {
+    "host": "ATMNode01",
+    "server-config": "Srv02_ATM"
+  },
+  {
+    "host": "SwiftNode02",
+    "server-config": "Srv03_Swift"
+  },
+  {
+    "host": "SwiftNode02",
+    "server-config": "Srv04_Swift"
+  },
+  {
+    "host": "SwiftNode02",
+    "server-config": "Srv07_Swift"
+  },
+  {
+    "host": "SwiftNode02",
+    "server-config": "Srv08_Swift"
+  },
+  {
+    "host": "SwiftNode01",
+    "server-config": "Srv01_Swift"
+  },
+  {
+    "host": "SwiftNode01",
+    "server-config": "Srv02_Swift"
+  },
+  {
+    "host": "SwiftNode01",
+    "server-config": "Srv05_Swift"
+  },
+  {
+    "host": "SwiftNode01",
+    "server-config": "Srv06_Swift"
+  },
+  {
+    "host": "SSOBrowserNode01",
+    "server-config": "Srv01_SSO_Browser"
+  },
+  {
+    "host": "SSOBrowserNode02",
+    "server-config": "Srv02_SSO_Browser"
+  },
+  {
+    "host": "ChannelEnqNode01",
+    "server-config": "Srv01_ChannelEnq"
+  },
+  {
+    "host": "ChannelEnqNode01",
+    "server-config": "Srv02_ChannelEnq"
+  },
+  {
+    "host": "ChannelEnqNode01",
+    "server-config": "Srv05_ChannelEnq"
+  },
+  {
+    "host": "ChannelEnqNode01",
+    "server-config": "Srv06_ChannelEnq"
+  },
+  {
+    "host": "ChannelEnqNode02",
+    "server-config": "Srv03_ChannelEnq"
+  },
+  {
+    "host": "ChannelEnqNode02",
+    "server-config": "Srv04_ChannelEnq"
+  },
+  {
+    "host": "ChannelEnqNode02",
+    "server-config": "Srv07_ChannelEnq"
+  },
+  {
+    "host": "ChannelEnqNode02",
+    "server-config": "Srv08_ChannelEnq"
+  },
+  {
+    "host": "BrowserNode01",
+    "server-config": "Srv01_Browser"
+  },
+  {
+    "host": "BrowserNode01",
+    "server-config": "Srv03_Browser"
+  },
+  {
+    "host": "TSMNode01",
+    "server-config": "Srv01_TSM"
+  },
+  {
+    "host": "TSMNode01",
+    "server-config": "Srv02_TSM"
+  },
+  {
+    "host": "TSMNode01",
+    "server-config": "Srv05_TSM"
+  },
+  {
+    "host": "TSMNode01",
+    "server-config": "Srv06_TSM"
+  },
+  {
+    "host": "SuperAppNode02",
+    "server-config": "Srv02_SuperApp"
+  },
+  {
+    "host": "SuperAppNode02",
+    "server-config": "Srv04_SuperApp"
+  },
+  {
+    "host": "BrowserNode02",
+    "server-config": "Srv02_Browser"
+  },
+  {
+    "host": "BrowserNode02",
+    "server-config": "Srv04_Browser"
+  },
+  {
+    "host": "TSMNode02",
+    "server-config": "Srv03_TSM"
+  },
+  {
+    "host": "TSMNode02",
+    "server-config": "Srv04_TSM"
+  },
+  {
+    "host": "TSMNode02",
+    "server-config": "Srv07_TSM"
+  },
+  {
+    "host": "TSMNode02",
+    "server-config": "Srv08_TSM"
+  },
+  {
+    "host": "SuperAppNode01",
+    "server-config": "Srv01_SuperApp"
+  },
+  {
+    "host": "SuperAppNode01",
+    "server-config": "Srv03_SuperApp"
+  }
+]
